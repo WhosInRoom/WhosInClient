@@ -40,6 +40,16 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            // Android용 Ktor 엔진
+            implementation(libs.ktor.client.okhttp)
+        }
+        iosMain.dependencies {
+            // iOS, MacOS용 Ktor 엔진
+            implementation(libs.ktor.client.darwin)
+        }
+        nativeMain.dependencies {
+            // iOS, MacOS용 Ktor 엔진
+            implementation(libs.ktor.client.darwin)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -50,6 +60,16 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            // Navigation
+            implementation(libs.navigation.compose)
+            // Ktor 핵심 클라이언트
+            implementation(libs.ktor.client.core)
+            // JSON 직렬화를 위해
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.kotlinx.serialization.json)
+            // Koin
+            implementation(libs.koin.core)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -57,6 +77,8 @@ kotlin {
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
+            // 데스크톱(JVM)용 Ktor 엔진
+            implementation(libs.ktor.client.okhttp)
         }
     }
 }
