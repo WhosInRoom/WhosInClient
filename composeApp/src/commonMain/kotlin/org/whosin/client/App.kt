@@ -30,7 +30,7 @@ fun App() {
 
         WhosInNavGraph(
             modifier = Modifier
-                .systemBarsPadding()
+                .safeContentPadding()
                 .fillMaxSize(),
             navController = navController
         )
