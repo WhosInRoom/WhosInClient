@@ -66,6 +66,7 @@ kotlin {
             implementation(libs.navigation.compose)
             // Ktor 핵심 클라이언트
             implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.logging)
             // JSON 직렬화를 위해
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
