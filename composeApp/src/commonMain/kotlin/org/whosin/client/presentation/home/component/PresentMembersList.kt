@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -33,42 +35,34 @@ fun PresentMembersList(
 ) {
     val scrollState = rememberScrollState()
 
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .verticalScroll(scrollState)
-    ) {
-        if (presentMemberList.isEmpty()) {
-            Box(
-                modifier = modifier
-                    .fillMaxWidth()
+    if (presentMemberList.isEmpty()) {
+        Box(
+            modifier = modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = stringResource(Res.string.current_empty),
+                color = Color(0xFFD2D2D2),
+                fontSize = 18.sp,
+                fontWeight = FontWeight(500),
+            )
+        }
+    } else {
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+        ) {
+            FlowRow(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                Text(
-                    text = stringResource(Res.string.current_empty),
-                    color = Color(0xFFD2D2D2),
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight(500),
-                    modifier = Modifier.align(Alignment.TopCenter).padding(top = 68.dp)
-                )
-            }
-        } else {
-            val scrollState = rememberScrollState()
-            Column(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .verticalScroll(scrollState)
-            ) {
-                FlowRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
-                ) {
-                    presentMemberList.forEach {
-                        PresentMembersItem(presentMemberNickName = it.nickname, isMe = it.isMe)
-                    }
+                presentMemberList.forEach { member ->
+                    PresentMembersItem(presentMemberNickName = member.nickname, isMe = member.isMe)
                 }
-                Spacer(Modifier.height(20.dp))
             }
+            Spacer(Modifier.height(20.dp))
         }
     }
 }

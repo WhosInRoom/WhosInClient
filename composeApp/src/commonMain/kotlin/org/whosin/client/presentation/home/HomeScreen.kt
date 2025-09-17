@@ -1,8 +1,15 @@
 package org.whosin.client.presentation.home
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +22,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -33,6 +44,7 @@ import whosinclient.composeapp.generated.resources.current_whos_in
 import whosinclient.composeapp.generated.resources.ic_hamburger
 import whosinclient.composeapp.generated.resources.ic_profile
 import whosinclient.composeapp.generated.resources.ic_refresh
+import whosinclient.composeapp.generated.resources.img_attend
 import whosinclient.composeapp.generated.resources.img_home_alone
 import whosinclient.composeapp.generated.resources.img_leave
 import whosinclient.composeapp.generated.resources.people_count
@@ -43,6 +55,8 @@ fun HomeScreen(
     onNavigateBack: () -> Unit,
     onNavigateToMyPage: () -> Unit,
 ) {
+    var isAttending by remember { mutableStateOf(true) }
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -148,13 +162,36 @@ fun HomeScreen(
             }
         }
 
-        Image(
-            painter = painterResource(Res.drawable.img_leave),
-            contentDescription = "Leave Button",
-            modifier = Modifier.align(Alignment.BottomCenter)
-        )
+        AnimatedContent(
+            targetState = isAttending,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null // 클릭 효과 제거
+                ) {
+                    isAttending = !isAttending
+                },
+            transitionSpec = {
+                fadeIn(animationSpec = tween(2000)) togetherWith
+                        fadeOut(animationSpec = tween(2000))
+            }
+        ) { attending ->
+            if (attending) {
+                Image(
+                    painter = painterResource(Res.drawable.img_leave),
+                    contentDescription = "Leave Button"
+                )
+            } else {
+                Image(
+                    painter = painterResource(Res.drawable.img_attend),
+                    contentDescription = "Attend Button"
+                )
+            }
+        }
     }
 }
+
 
 @Preview
 @Composable
