@@ -86,6 +86,9 @@ kotlin {
             // 데스크톱(JVM)용 Ktor 엔진
             implementation(libs.ktor.client.okhttp)
         }
+        wasmJsMain.dependencies {
+             implementation(libs.ktor.client.cio)
+        }
     }
 }
 
