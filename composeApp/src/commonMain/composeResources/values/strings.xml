@@ -2,4 +2,5 @@
     <!--    home    -->
     <string name="current_whos_in">지금 %1$s의\n재실자는?</string>
     <string name="people_count">명</string>
+    <string name="current_empty">지금은 아무도 없어요.</string>
 </resources>
