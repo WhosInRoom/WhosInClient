@@ -1,6 +1,7 @@
 package org.whosin.client.di
 
 import io.ktor.client.engine.HttpClientEngineFactory
+import org.koin.core.module.Module
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import org.whosin.client.core.network.HttpClientFactory
@@ -16,13 +17,14 @@ fun appModule() = listOf(
     httpClientModule,
     dataSourceModule,
     repositoryModule,
-    viewModelModule
+    viewModelModule,
+    platformModule
 )
 
+expect val platformModule: Module
+
 val httpClientModule = module {
-    single{
-        HttpClientFactory.create(get())
-    }
+    single{ HttpClientFactory.create(get()) }
 }
 
 val dataSourceModule = module {
