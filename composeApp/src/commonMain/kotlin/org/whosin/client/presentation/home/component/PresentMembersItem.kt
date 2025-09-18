@@ -84,7 +84,7 @@ fun PresentMembersItem(
             Text(
                 text = presentMemberNickName,
                 color = textColor,
-                fontSize = 16.sp,  // TODO: font style 변경
+                fontSize = 16.sp,
                 fontWeight = FontWeight(600),
                 textAlign = TextAlign.Center
             )
