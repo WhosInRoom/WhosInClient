@@ -48,7 +48,8 @@ import org.whosin.client.presentation.home.component.MyClubSidebar
 import org.whosin.client.presentation.home.component.PresentMembersList
 import org.whosin.client.presentation.home.mock.sampleUsers
 import whosinclient.composeapp.generated.resources.Res
-import whosinclient.composeapp.generated.resources.current_whos_in
+import whosinclient.composeapp.generated.resources.current_whos_in_bottom
+import whosinclient.composeapp.generated.resources.current_whos_in_top
 import whosinclient.composeapp.generated.resources.ic_hamburger
 import whosinclient.composeapp.generated.resources.ic_profile
 import whosinclient.composeapp.generated.resources.ic_refresh
@@ -139,26 +140,39 @@ fun HomeScreen(
                     )
                 }
 
-                Box {
+                Column {
                     Text(
-                        text = stringResource(Res.string.current_whos_in, selectedClub),
+                        text = stringResource(Res.string.current_whos_in_top, selectedClub),
                         color = Color.Black,
-                        fontSize = 20.sp, // TODO: font style 변경
+                        fontSize = 20.sp,
                         lineHeight = 32.sp,
                         fontWeight = FontWeight(600),
                         modifier = Modifier
                             .padding(top = 4.dp, start = 20.dp)
                     )
 
-                    Image(
-                        painter = painterResource(Res.drawable.ic_refresh),
-                        contentDescription = "Refresh Button",
-                        modifier = Modifier
-                            .padding(start = 108.dp, bottom = 3.dp)
-                            .size(24.dp)
-                            .align(Alignment.BottomStart)
+                    Row(
+                        verticalAlignment = Alignment.Bottom
+                    ) {
+                        Text(
+                            text = stringResource(Res.string.current_whos_in_bottom),
+                            color = Color.Black,
+                            fontSize = 20.sp,
+                            lineHeight = 32.sp,
+                            fontWeight = FontWeight(600),
+                            modifier = Modifier
+                                .padding(top = 4.dp, start = 20.dp)
+                        )
+
+                        Image(
+                            painter = painterResource(Res.drawable.ic_refresh),
+                            contentDescription = "Refresh Button",
+                            modifier = Modifier
+                                .padding(start = 4.dp, bottom = 3.dp)
+                                .size(24.dp)
 //                        .clickable(onClick = onNavigateToMyPage)
-                    )
+                        )
+                    }
                 }
 
                 Row(
@@ -169,7 +183,7 @@ fun HomeScreen(
                     Text(
                         text = sampleUsers.size.toString(), // TODO: 데이터 적용
                         color = Color.Black,
-                        fontSize = 45.sp, // TODO: font style 변경
+                        fontSize = 45.sp,
                         lineHeight = 67.5.sp,
                         fontWeight = FontWeight(700)
                     )
@@ -177,7 +191,7 @@ fun HomeScreen(
                     Text(
                         text = stringResource(Res.string.people_count),
                         color = Color.Black,
-                        fontSize = 20.sp, // TODO: font style 변경
+                        fontSize = 20.sp,
                         lineHeight = 30.sp,
                         fontWeight = FontWeight(500),
                         modifier = Modifier.padding(start = 4.dp, bottom = 12.dp)
