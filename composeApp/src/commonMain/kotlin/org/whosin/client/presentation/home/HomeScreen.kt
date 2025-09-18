@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -66,7 +67,7 @@ fun HomeScreen(
     val scope = rememberCoroutineScope()
 
     var isAttending by remember { mutableStateOf(true) }
-    val clubs = listOf("메이커스팜", "목방", "건대교지편집위원회", "국어국문학과", "국어국문학과")
+    val clubs = listOf("메이커스팜", "목방", "건대교지편집위원회", "국어국문학과", "컴퓨터공학부")
 
     var selectedClub by remember { mutableStateOf(clubs.first()) }
 
@@ -75,10 +76,12 @@ fun HomeScreen(
         scrimColor = Color(0x66000000),
         drawerContent = {
             ModalDrawerSheet(
-                modifier = Modifier.size(width = 224.dp, height = 325.dp),
-                drawerShape = RoundedCornerShape(topEnd = 10.dp, bottomEnd = 10.dp)
+                modifier = Modifier.width(224.dp),
+                drawerShape = RoundedCornerShape(topEnd = 10.dp, bottomEnd = 10.dp),
+                drawerContainerColor = Color.Transparent
             ) {
                 MyClubSidebar(
+                    modifier = Modifier.height(325.dp),
                     clubs = clubs,
                     selectedClub = selectedClub,
                     onClubSelected = { newClub ->
@@ -151,9 +154,9 @@ fun HomeScreen(
                         painter = painterResource(Res.drawable.ic_refresh),
                         contentDescription = "Refresh Button",
                         modifier = Modifier
-                            .padding(end = 36.dp, bottom = 3.dp)
+                            .padding(start = 108.dp, bottom = 3.dp)
                             .size(24.dp)
-                            .align(Alignment.BottomEnd)
+                            .align(Alignment.BottomStart)
 //                        .clickable(onClick = onNavigateToMyPage)
                     )
                 }
@@ -181,11 +184,12 @@ fun HomeScreen(
                     )
                 }
 
+                Spacer(modifier = Modifier.height(74.dp))
+
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f)
-                        .padding(top = 58.dp)
                         .shadow(
                             elevation = 20.dp,
                             shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
@@ -212,8 +216,8 @@ fun HomeScreen(
                         isAttending = !isAttending
                     },
                 transitionSpec = {
-                    fadeIn(animationSpec = tween(2000)) togetherWith
-                            fadeOut(animationSpec = tween(2000))
+                    fadeIn(animationSpec = tween(1000)) togetherWith
+                            fadeOut(animationSpec = tween(1000))
                 }
             ) { attending ->
                 if (attending) {
